@@ -5,6 +5,5 @@ import (
 )
 
 func main() {
-	fmt.Println(mergeAlternately)
-
+	fmt.Println(canPlaceFlowers([]int{0}, 2))
 }
