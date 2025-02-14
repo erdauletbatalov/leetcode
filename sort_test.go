@@ -94,7 +94,8 @@ func TestInsertionSort(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-
+			input := make([]int, len(tt.input))
+			copy(input, tt.input)
 			InsertionSort(input)
 			if !reflect.DeepEqual(input, tt.expected) {
 				t.Errorf("InsertionSort() = %v, want %v", input, tt.expected)
