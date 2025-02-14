@@ -1,28 +1,16 @@
 package main
 
 func isValid(s string) bool {
-	a, b, c := 0, 0, 0
+	stack := []rune{}
 	for _, val := range s {
-		switch val {
-		case '{':
-			a++
-		case '(':
-			b++
-		case '[':
-			c++
-		case '}':
-			a--
-		case ')':
-			b--
-		case ']':
-			c--
-		}
-		if a < 0 || b < 0 || c < 0 {
-			return false
+		stack = append(stack, val)
+		if len(stack) >= 2 {
+			if string(stack[len(stack)-2:]) == "{}" || string(stack[len(stack)-2:]) == "()" || string(stack[len(stack)-2:]) == "[]" {
+				stack = stack[:len(stack)-2]
+			}
 		}
 	}
-
-	if a == 0 && b == 0 && c == 0 {
+	if len(stack) == 0 {
 		return true
 	}
 	return false
