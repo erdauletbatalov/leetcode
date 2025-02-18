@@ -1,24 +1,44 @@
 package main
 
-import "strconv"
+import (
+	"strconv"
+)
 
 func calPoints(operations []string) int {
 	stack := []int{}
+	total := 0
+
 	for _, val := range operations {
-		if val == "D" {
-			stack = append(stack, stack[len(stack)-1]*2)
-		} else if val == "C" {
+		switch val {
+		case "D":
+			if len(stack) == 0 {
+				continue // Игнорируем некорректную операцию
+			}
+			double := stack[len(stack)-1] * 2
+			stack = append(stack, double)
+			total += double
+		case "C":
+			if len(stack) == 0 {
+				continue // Игнорируем, если нечего удалять
+			}
+			total -= stack[len(stack)-1]
 			stack = stack[:len(stack)-1]
-		} else if val == "+" {
-			stack = append(stack, stack[len(stack)-2]+stack[len(stack)-1])
-		} else {
-			digit, _ := strconv.Atoi(val)
+		case "+":
+			if len(stack) < 2 {
+				continue // Игнорируем, если недостаточно элементов
+			}
+			sum := stack[len(stack)-1] + stack[len(stack)-2]
+			stack = append(stack, sum)
+			total += sum
+		default:
+			digit, err := strconv.Atoi(val)
+			if err != nil {
+				continue // Игнорируем некорректные строки
+			}
 			stack = append(stack, digit)
+			total += digit
 		}
 	}
-	var result int
-	for _, val := range stack {
-		result += val
-	}
-	return result
+
+	return total
 }
