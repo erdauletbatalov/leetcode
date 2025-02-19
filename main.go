@@ -5,29 +5,23 @@ import (
 )
 
 func main() {
-	// fmt.Println(canPlaceFlowers([]int{0, 0, 0, 0, 1}, 3))
-	// fmt.Println("Check")
-	// fmt.Println("Second check")
-	// fmt.Println(getConcatenation([]int{1, 2, 1}))
-	MinStack := Constructor()
-	MinStack.Push(3)
-	MinStack.Push(5)
-	MinStack.Push(8)
-	MinStack.Push(2)
-	MinStack.Push(9)
-	MinStack.Push(7)
-	MinStack.Push(1)
-	MinStack.Push(0)
-	fmt.Println(MinStack)
-	fmt.Println()
+	ll := Constructor707()
+	fmt.Println(ll)
 
-	fmt.Println(MinStack.GetMin())
-	MinStack.Pop()
-	fmt.Println(MinStack.GetMin())
-	MinStack.Pop()
-	fmt.Println(MinStack.GetMin())
-	fmt.Println(MinStack.Top())
-	fmt.Println(MinStack)
+	ll.AddAtTail(10)
+	// ll.AddAtTail(20)
+	fmt.Println(ll)
 
-	fmt.Println()
+	// ll.AddAtIndex(0, 10)
+	// ll.AddAtIndex(0, 20)
+	// ll.AddAtIndex(1, 30)
+
+	// fmt.Println(ll.Get(0))
+	fmt.Println(ll.Get(1))
+
+	// ll.AddAtHead(5)
+	// fmt.Println(ll.head, ll.head.next)
+
+	// ll.DeleteAtIndex(0)
+	// fmt.Println(ll)
 }
