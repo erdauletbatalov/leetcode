@@ -1,75 +1,43 @@
 package main
 
 type BrowserHistory struct {
-	homepage string
-	head     *BrowserPage
-	curr     *BrowserPage
-	currSize int
-	size     int
+	list *node
 }
 
-type BrowserPage struct {
+type node struct {
 	val  string
-	next *BrowserPage
-	prev *BrowserPage
+	next *node
+	prev *node
 }
 
 func Constructor1472(homepage string) BrowserHistory {
-	return BrowserHistory{homepage: homepage}
+	return BrowserHistory{list: &node{val: homepage}}
 }
 
 func (this *BrowserHistory) Visit(url string) {
-	if this.size == 0 || this.currSize == 0 {
-		this.head = &BrowserPage{val: url}
-		this.curr = this.head
-		this.currSize++
-		this.size = this.currSize
-		return
-	}
-	this.curr.next = &BrowserPage{val: url, next: nil, prev: this.curr}
-	this.curr = this.curr.next
-	this.currSize++
-	this.size = this.currSize
+	this.list.next = &node{val: url, next: nil, prev: this.list}
+	this.list = this.list.next
 }
 
 func (this *BrowserHistory) Back(steps int) string {
-	if steps >= this.size || steps >= this.currSize {
-		this.curr = nil
-		this.currSize = 0
-		return this.homepage
-	}
-	for i := 0; i < steps; i++ {
-		if this.size == 0 || this.currSize == 0 {
-			return this.homepage
+	for this.list.prev != nil {
+		this.list = this.list.prev
+		if steps--; steps == 0 {
+			break
 		}
-		this.curr = this.curr.prev
-		this.currSize--
 	}
-	if this.curr == nil {
-		return this.homepage
-	}
-
-	return this.curr.val
+	return this.list.val
 }
 
 func (this *BrowserHistory) Forward(steps int) string {
 
-	for i := 0; i < steps; i++ {
-		if this.size == 0 {
-			return this.homepage
+	for this.list.next != nil {
+		this.list = this.list.next
+		if steps--; steps == 0 {
+			break
 		}
-		if this.currSize >= this.size {
-			return this.curr.val
-		}
-		if this.curr == nil {
-			this.curr = this.head
-			this.currSize++
-			continue
-		}
-		this.curr = this.curr.next
-		this.currSize++
 	}
-	return this.curr.val
+	return this.list.val
 }
 
 /**
