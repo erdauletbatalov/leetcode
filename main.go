@@ -3,5 +3,5 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println(fib(10))
+	fmt.Println(climbStairs(33))
 }
