@@ -29,8 +29,9 @@ func (this *MyStack) Pop() int {
 	if this.q1.Len() == 0 {
 		return 0
 	}
-	front := this.q1.Remove(this.q1.Front())
-	return front.(list.Element).Value.(int)
+	front := this.q1.Front()
+	this.q1.Remove(front)
+	return front.Value.(int)
 }
 
 func (this *MyStack) Top() int {
