@@ -1,29 +1,60 @@
 package main
 
-import "fmt"
+import (
+	"container/list"
+)
 
 func main() {
-	var root *BSTNode
+	// Создаем новый список
+	myList := list.New()
+	myList.Init()
+	myList.PushBack(3)
+	myList.PushFront(4)
+	myList.InsertAfter(1, myList.Front())
+	myList.InsertBefore(2, myList.Back())
 
-	// Вставляем элементы в BST
-	root = Insert(root, 10)
-	root = Insert(root, 5)
-	root = Insert(root, 15)
-	root = Insert(root, 3)
-	root = Insert(root, 7)
-	root = Insert(root, 12)
-	root = Insert(root, 18)
+	for e := myList.Front(); e != nil; e = e.Next() {
+		print(e.Value.(int), " ")
+	}
+	println()
+	print(myList.Back().Value.(int))
+	print(" ")
+	print(myList.Front().Value.(int))
+	println()
+	myList.Remove(myList.Front())
 
-	// Обход дерева in-order до удаления
-	fmt.Println("In-order traversal before removal:")
-	InOrderTraversal(root)
-	fmt.Println()
+	for e := myList.Front(); e != nil; e = e.Next() {
+		print(e.Value.(int), " ")
+	}
+	println()
 
-	// Удаляем элемент 5
-	root = Remove(root, 5)
+	println("Len: ", myList.Len())
 
-	// Обход дерева in-order после удаления
-	fmt.Println("In-order traversal after removal:")
-	InOrderTraversal(root)
-	fmt.Println()
+	myList.MoveAfter(myList.Front(), myList.Back())
+	println()
+	for e := myList.Front(); e != nil; e = e.Next() {
+		print(e.Value.(int), " ")
+	}
+	println()
+
+	myList.InsertAfter(5, myList.Back())
+
+	myList.MoveBefore(myList.Front(), myList.Back())
+	println()
+	for e := myList.Front(); e != nil; e = e.Next() {
+		print(e.Value.(int), " ")
+	}
+	println()
+
+	myList.Init()
+
+	println()
+	for e := myList.Front(); e != nil; e = e.Next() {
+		print(e.Value.(int), " ")
+	}
+	println()
+	// myList.Remove(myList.Front())
+	// myList.Remove(myList.Back())
+	// myList.Remove(myList.Front())
+	// myList.Remove(myList.Back())
 }
